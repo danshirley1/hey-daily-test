@@ -1,0 +1,43 @@
+.postContainer {
+    max-width: 400px;
+    min-width: 300px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.postHeader {
+    display: flex;
+}
+
+
+.postText {
+
+}
+
+.postAttachments {
+
+}
+
+.postAttachments > img {
+    max-width: 100%;
+}
+
+.profilePicture {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profilePicture > img {
+    object-fit: cover;
+    position: relative !important;
+}
+
+.comments {
+
+}
