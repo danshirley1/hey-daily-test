@@ -1,0 +1,12 @@
+{
+  "name": "heydaily-interview-question-server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start-db": "cd db && docker-compose --project-name hey-daily-db up",
+    "init-db": "node -e 'require(\"./db-query.ts\").init()'"
+  },
+  "dependencies": {
+    "mysql2": "^2.3.3"
+  }
+}
