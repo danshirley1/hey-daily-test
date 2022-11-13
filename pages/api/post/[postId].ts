@@ -40,11 +40,6 @@ function getPost(postId: string): Post {
     };
 }
 
-function savePost(postBody: Post): Post {
-    // TODO: Fill this logic in to save a post to persistent storage
-    return getPost(postBody.id);
-}
-
 export default function handler(
     req: NextApiRequest,
     res: NextApiResponse<Post>
@@ -56,12 +51,8 @@ export default function handler(
         case "GET":
             res.status(200).json(getPost(postId));
             break;
-        case "PUT":
-            // Update or create data in database
-            res.status(200).json(savePost(req.body));
-            break;
         default:
-            res.setHeader("Allow", ["GET", "PUT"]);
+            res.setHeader("Allow", ["GET"]);
             res.status(405).end(`Method ${method} Not Allowed`);
     }
 }
