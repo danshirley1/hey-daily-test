@@ -102,3 +102,9 @@ A list of things that spring to mind for what I'd do next, with further time:
 - Tighter form validation client and server side (max length etc.).
 - Comments, attachments, reactions.
 - Some styling.
+
+### Additional
+
+For a peak at some more of my React experience, covering things like Redux, Epic, observables, testing approaches etc. feel free to take a look at https://github.com/danshirley1/portfolio.
+
+Thanks for your time! Dan.
