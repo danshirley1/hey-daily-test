@@ -5,6 +5,7 @@ Hello! And welcome to the HeyDaily take-home coding test.
 The goal of this challenge is to assess your full-stack engineering capabilities and overall feel for product design.
 
 ## The Brief
+
 This repo provides a partially complete skeleton for a post view. Your task is to complete the post view to the best of
 your abilities within a ~3 hour time window. You may choose to focus on one or more of the following parts:
 - Making the post view look beautiful
@@ -23,48 +24,81 @@ Once complete please:
 Do reach out asap if you're having any issues getting the project to run or understanding the task!
 
 ## Getting Started
-First, install the packages:
+
+### Prerequisites
+
+You will need the following installed on your machine:
+
+- Node
+- TypeScript (run `npm install -g typescript`)
+- Docker
+- An internet connection
+
+First, install the dependencies:
+
 ```bash
 yarn
-# or
-npm install
 ```
 
+Next, start the SQL Service in Docker:
+
+```bash
+start-db
+```
+
+Next, initialise the SQL Database:
+
+```bash
+init-db
+```
 
 Next, run the development server:
 
 ```bash
 yarn dev
-# or
-npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the homepage and
 [http://localhost:3000/postId](http://localhost:3000/postId) to view with the post with id `postId`.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+To connect to the database, use these options:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on
-[http://localhost:3000/api/](http://localhost:3000/api/). These endpoints can be edited in `pages/api/`.
+```
+hostname: 127.0.0.1
+port: 3306
+username: root
+pass: foobar
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as
-[API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+**Note:** When making any changes to the code in `/server` make sure to transpile the TypeScript files for your changes to take effect (`yarn transpile-server`).
 
-## Learn More
+## Handover Notes
 
-To learn more about Next.js, take a look at the following resources:
+I focussed on the data interchange between the front end and a SQL database backend.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+I spent a total of 4 hours on the project. There is of course plenty more I'd like to have done (see Next Steps section below). Also please consider that I was new to Next.js but have been studying the tutorials, and it's very cool.
 
+### Database Back End
 
+- I provision the database environment via Docker for cross platform consistency.
+- There are some set up steps which are automated via the yarn commands in `package.json`.
+- The `runQuery()` function in `/server/db-query.ts` is called by the Next API handlers.
 
->>>
+### Front End
 
+- I added a new view (`/pages/CreatePost.tsx`) which contains a very simple form for submitting some Post fields.
+- I created the required handler functionality in `/pages/api/post/CreatePost.ts` for submitting the form and writing a new Post record to the database.
+- Once the submission has completed successfully the user is redirected to the View Post view for the new Post entry.
 
-Prerequisites
+### Considerations
 
+- I am new to Next.js however have done a good amount of background reading in advance of starting any implementation. I deliberately chose to avoid any heroics with the framework and focus on what I knew I could achieve.
+- I feel I've demonstrated a good E2E example in the time spent from a data interchange perspective but have not touched any look and feel due to time constraints. Consider that my day to day work is heavily weighted towards layout, so felt it best to demonstrate things a little further back in the stack.
 
-Don't forget to transpile the '/server' TypeScript files after making any changes (i.e. run `yarn transpile-server`).
+### Next Steps
 
-npm install -g typescript will install TypeScript globally.
+A list of things that spring to mind for what I'd do next, with further time:
+
+- Tighter form validation client and server side (max length etc.).
+- Comments, attachments, reactions.
+- Some styling.
