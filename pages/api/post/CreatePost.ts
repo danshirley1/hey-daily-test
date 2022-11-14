@@ -11,7 +11,7 @@ function validateFormFields(data: CreatePostFormFields): boolean {
   return (!!creatorId && !!title && !!content); // TODO implement thorough validation rules e.g. max-len
 }
 
-async function savePost(data: CreatePostFormFields): void {
+async function savePost(data: CreatePostFormFields): number  {
   const {
     creatorId,
     title,

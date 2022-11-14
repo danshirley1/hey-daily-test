@@ -16,6 +16,7 @@ export type ImageAttachment = {
 };
 
 export type Creator = {
+    id: number,
     name: string;
     profileImagePath: string;
 };

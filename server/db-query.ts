@@ -21,7 +21,7 @@ async function testConnectivity(): Promise<void> {
   try {
     await connect();
     console.log('Connection has been established successfully.');
-  } catch (error: any) {
+  } catch (error) {
     console.error(`Unable to connect to the database: ${error.message}`);
     process.exit(1);
   }
