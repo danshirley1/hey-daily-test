@@ -64,4 +64,7 @@ To learn more about Next.js, take a look at the following resources:
 
 Prerequisites
 
+
+Don't forget to transpile the '/server' TypeScript files after making any changes (i.e. run `yarn transpile-server`).
+
 npm install -g typescript will install TypeScript globally.

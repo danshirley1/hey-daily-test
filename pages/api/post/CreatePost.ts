@@ -3,19 +3,19 @@ import { CreatePostFormFields } from "../../../interfaces";
 
 function validateFormFields(data: CreatePostFormFields): boolean {
   const {
-    creatorId: string,
-    title: string,
-    content: string,
+    creatorId,
+    title,
+    content,
   } = data;
 
   return (!!creatorId && !!title && !!content); // TODO implement thorough validation rules e.g. max-len
 }
 
-function savePost(data: CreatePostFormFields): void {
+async function savePost(data: CreatePostFormFields): void {
   const {
-    creatorId: string,
-    title: string,
-    content: string,
+    creatorId,
+    title,
+    content,
   } = data;
 
   const query = `
@@ -23,10 +23,16 @@ function savePost(data: CreatePostFormFields): void {
     VALUES (${creatorId}, '${title}', '${content}');
   `;
 
-  runQuery(query);
+  const queryResult = await runQuery(query);
+
+  if (queryResult && queryResult[0] && Object.prototype.hasOwnProperty.call(queryResult[0], 'insertId')) {
+    return queryResult[0].insertId;
+  }
+
+  throw new Error('Unexpected query response!');
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Post>
 ) {
@@ -34,14 +40,16 @@ export default function handler(
 
   switch (method) {
     case 'POST':
-      const isFormValid = validateFormFields(req.body);
+      const isFormValid: boolean = validateFormFields(req.body);
 
       if (!isFormValid) return res.status(400).end('One or more form fields were invalid!');
 
       try {
-        res.status(200).json(savePost(req.body));
+        const newPostId: number = await savePost(req.body);
+        return res.redirect(307, `/${newPostId}`);
       } catch (err) {
-        res.status(500).end('Form submission failed!');
+        console.log('Form submission failure!', err);
+        return res.status(500).end('Form submission failed!');
       }
       break;
       default:

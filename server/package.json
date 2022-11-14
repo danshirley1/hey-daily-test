@@ -7,6 +7,7 @@
     "init-db": "tsc \"db-query.ts\" && node -e 'require(\"./db-query.js\").init()'"
   },
   "dependencies": {
+    "cardinal": "^2.1.1",
     "mysql2": "^2.3.3"
   }
 }

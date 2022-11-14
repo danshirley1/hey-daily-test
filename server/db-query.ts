@@ -17,17 +17,17 @@ async function connect(): Promise<MySqlConnection> {
   return connection;
 }
 
-async function testConnectivity(): void {
+async function testConnectivity(): Promise<void> {
   try {
     await connect();
     console.log('Connection has been established successfully.');
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Unable to connect to the database: ${error.message}`);
     process.exit(1);
   }
 }
 
-async function createDbStructure(): void {
+async function createDbStructure(): Promise<void> {
   const connection = await connect();
   const tableStructure = readFileSync('./db/create-tables.sql').toString();
 
@@ -36,16 +36,12 @@ async function createDbStructure(): void {
   console.log('Table structure created ok!');
 }
 
-async function runQuery(query: string): void {
+async function runQuery(query: string): Promise<any> {
   const connection = await connect();
-
-  await connect();
-  await connection.query(query).catch((err) => {
-    console.error(err);
-  });
+  return connection.query(query);
 }
 
-async function init(): void {
+async function init(): Promise<void> {
   await testConnectivity();
   await createDbStructure();
   process.exit();
@@ -55,3 +51,5 @@ module.exports = {
   init,
   runQuery,
 };
+
+export {};
