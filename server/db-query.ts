@@ -1,7 +1,11 @@
 const mysql = require('mysql2/promise');
 const { readFileSync } = require('fs');
 
-async function connect() {
+type MySqlConnection = {
+  query: (query: string) => any;
+};
+
+async function connect(): Promise<MySqlConnection> {
   const connection = await mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -13,7 +17,7 @@ async function connect() {
   return connection;
 }
 
-async function testConnectivity() {
+async function testConnectivity(): void {
   try {
     await connect();
     console.log('Connection has been established successfully.');
@@ -23,14 +27,16 @@ async function testConnectivity() {
   }
 }
 
-async function createDbStructure() {
+async function createDbStructure(): void {
   const connection = await connect();
-  const tableStructure = fs.readFileSync('./db/create-tables.sql').toString();
+  const tableStructure = readFileSync('./db/create-tables.sql').toString();
 
+  console.log('Creating table structure...');
   await connection.query(tableStructure);
+  console.log('Table structure created ok!');
 }
 
-async function runQuery(query) {
+async function runQuery(query: string): void {
   const connection = await connect();
 
   await connect();
@@ -39,7 +45,7 @@ async function runQuery(query) {
   });
 }
 
-async function init() {
+async function init(): void {
   await testConnectivity();
   await createDbStructure();
   process.exit();

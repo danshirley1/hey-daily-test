@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start-db": "cd db && docker-compose --project-name hey-daily-db up",
-    "init-db": "node -e 'require(\"./db-query.ts\").init()'"
+    "init-db": "tsc \"db-query.ts\" && node -e 'require(\"./db-query.js\").init()'"
   },
   "dependencies": {
     "mysql2": "^2.3.3"

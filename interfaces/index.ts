@@ -22,3 +22,9 @@ export type Creator = {
 
 // Update this
 export type Comment = {};
+
+export type CreatePostFormFields = {
+  creatorId: string;
+  title: string;
+  content: string;
+};
